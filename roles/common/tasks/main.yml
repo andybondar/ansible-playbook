@@ -1,0 +1,7 @@
+---
+- name: Add LANG="en_US.UTF-8" to /etc/default/locale, if it doesn't exist
+  lineinfile: dest=/etc/default/locale state=present line=LANG=\"en_US.UTF-8\" insertbefore=BOF
+
+
+- name: Install htop
+  apt: name=htop

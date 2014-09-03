@@ -1,0 +1,20 @@
+---
+- name: Prepare jenkins slave node
+  hosts: jenkins-slave
+  vars_files:
+    - vars.yml
+
+  user: root
+  remote_user: master
+  sudo: yes
+#  tasks:
+#    - name: install initial packages
+#      apt: name=git
+
+  roles:
+#   - kernel
+   - common
+   - git
+   - java
+   - openvswitch
+   - slave

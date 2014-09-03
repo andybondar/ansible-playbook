@@ -1,0 +1,5 @@
+---
+# created with:
+#  python -c 'import crypt; print crypt.crypt("mypassword", "$6$Som3Salt$");'
+jenkins_password: $6$Som3Salt$.mkxIaQZIRCsX2twItJCnoCcXS.cznO2Nmfi.MBOOW9y0UtamPIHlSrVvmdOMvQ0vy1Rs8vUykosF8.2lJCzn.
+stack_password: $6$Som3Salt$sorJ.RpU5ByfebjAwSYupp9AdqxO6tzKR9ridgOXx/LnWFHM57Yi8ZsewhPcrZQIBHeFsivpbiSjsZaufPHpS0

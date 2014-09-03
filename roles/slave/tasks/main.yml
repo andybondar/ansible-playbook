@@ -1,0 +1,40 @@
+---
+- name: Add group ci-sudo
+  group: name=ci-sudo state=present
+
+- name: Add user jenkins
+  user: name=jenkins password={{jenkins_password}} shell=/bin/bash groups=ci-sudo state=present append=yes update_password=always
+
+- name: Add user stack
+  user: name=stack password={{stack_password}} shell=/bin/bash groups=ci-sudo state=present append=yes update_password=always
+
+- name: Remove group '%ci-sudo' from /etc/sudoers, if found
+  lineinfile: dest=/etc/sudoers state=absent regexp="^%ci-sudo"
+
+- name: Add group '%ci-sudo' to /etc/sudoers after '%sudo'
+  lineinfile: "dest=/etc/sudoers state=present insertafter='^%sudo' line='%ci-sudo ALL=(ALL) NOPASSWD: ALL'"
+
+- name: Create folder '.ssh' in jenkins home directory
+  command: /bin/mkdir -p /home/jenkins/.ssh
+
+- name: Chown for '.ssh' folder
+  command: /bin/chown jenkins:jenkins /home/jenkins/.ssh
+
+- name: Copy 'id_rsa' SSH key
+  copy: src=id_rsa dest=/home/jenkins/.ssh/id_rsa owner=jenkins group=jenkins mode=600
+
+- name: Copy 'id_rsa.pub' SSH key
+  copy: src=id_rsa.pub dest=/home/jenkins/.ssh/id_rsa.pub owner=jenkins group=jenkins mode=644
+
+- name: Copy 'id_rsa.pub' SSH key to 'authorized_keys' on the host
+  copy: src=id_rsa.pub dest=/home/jenkins/.ssh/authorized_keys owner=jenkins group=jenkins mode=644
+
+- name: Create folders for jenkins and DevStack
+  command: /bin/mkdir -p /opt/jenkins /opt/stack /opt/files
+
+- name: Chown for /opt/jenkins
+  command: /bin/chown jenkins:jenkins /opt/jenkins
+
+- name: Chown for '/opt/stack' and '/opt/files'
+  command: /bin/chown stack:stack /opt/stack /opt/files
+

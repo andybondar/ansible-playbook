@@ -1,0 +1,15 @@
+---
+- name: Install openvswitch-common
+  apt: name=openvswitch-common
+
+- name: Install openvswitch-datapath-dkms
+  apt: name=openvswitch-datapath-dkms
+
+- name: Install openvswitch-switch
+  apt: name=openvswitch-switch
+
+- name: Reboot instance after openvswitch was installed
+  command: /sbin/shutdown -r now 'System is goin down after openvswitch was installed'
+
+- name: Wait for a host to come back
+  local_action: wait_for host={{ ansible_ssh_host }} port={{ ansible_ssh_port }} state=started
