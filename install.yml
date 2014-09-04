@@ -7,12 +7,9 @@
   user: root
   remote_user: master
   sudo: yes
-#  tasks:
-#    - name: install initial packages
-#      apt: name=git
+
 
   roles:
-#   - kernel
    - common
    - git
    - java
