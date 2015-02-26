@@ -46,3 +46,11 @@ Finally - run ansible-playbook:
 
 After playbook finish working Jenkins slave node environment is completely deployed. Now you can connect it to Jenkins master as a new node.
 
+P.S. 
+
+### Installing Oracle JDK7 manually un Ubuntu 12.04
+
+	sudo apt-get install python-software-properties
+	sudo add-apt-repository ppa:webupd8team/java
+	sudo apt-get update
+	sudo apt-get install oracle-java7-installer
